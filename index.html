@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D PDF Conversion Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      padding: 20px;
+    }
+    .dashboard {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .file-upload {
+      margin-bottom: 20px;
+    }
+    .file-upload input[type="file"] {
+      display: none;
+    }
+    .file-upload label {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .templates {
+      margin-bottom: 20px;
+    }
+    .templates label {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>3D PDF Conversion Platform</h1>
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#">Settings</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Welcome to Your Dashboard</h2>
+    <div class="dashboard">
+      <div class="card">
+        <h3>Upload Files</h3>
+        <div class="file-upload">
+          <input type="file" id="fileInput" accept=".dwg,.dxf,.obj">
+          <label for="fileInput">Upload Your File</label>
+          <p id="fileName">No file chosen</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Select a Template</h3>
+        <div class="templates">
+          <label><input type="radio" name="template" value="Template 1"> Template 1</label>
+          <label><input type="radio" name="template" value="Template 2"> Template 2</label>
+          <label><input type="radio" name="template" value="Template 3"> Template 3</label>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Actions</h3>
+        <button onclick="processFile()">Convert to 3D PDF</button>
+        <p id="statusMessage"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 3D PDF Conversion Platform. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const fileName = document.getElementById('fileName');
+    const statusMessage = document.getElementById('statusMessage');
+
+    fileInput.addEventListener('change', () => {
+      fileName.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'No file chosen';
+    });
+
+    function processFile() {
+      const selectedTemplate = document.querySelector('input[name="template"]:checked');
+
+      if (!fileInput.files.length) {
+        statusMessage.textContent = 'Please upload a file first!';
+        statusMessage.style.color = 'red';
+        return;
+      }
+
+      if (!selectedTemplate) {
+        statusMessage.textContent = 'Please select a template!';
+        statusMessage.style.color = 'red';
+        return;
+      }
+
+      statusMessage.textContent = 'Processing your file and generating 3D PDF...';
+      statusMessage.style.color = 'green';
+
+      // Simulate backend processing
+      setTimeout(() => {
+        statusMessage.textContent = '3D PDF generated successfully! Ready for download.';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
